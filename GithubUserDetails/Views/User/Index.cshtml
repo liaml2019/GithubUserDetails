@@ -16,19 +16,22 @@
 @if(Model != null && Model.GithubDetails != null) {
     <h3>Showing details for @Model.UserName </h3>
 
-    <div>
-        @Html.LabelFor(m => m.GithubDetails.name)
-        @Html.DisplayFor(m => m.GithubDetails.name)
-    </div>
+    <div class="layout">
+        <div>
+            @Html.LabelFor(m => m.GithubDetails.name)
+            @Html.DisplayFor(m => m.GithubDetails.name)
+        </div>
 
-    <div>
-        @Html.LabelFor(m => m.GithubDetails.location)
-        @Html.DisplayFor(m => m.GithubDetails.location)
-    </div>
+        <div>
+            @Html.LabelFor(m => m.GithubDetails.location)
+            @Html.DisplayFor(m => m.GithubDetails.location)
+        </div>
 
-    <div>
-        @Html.LabelFor(m => m.GithubDetails.avatar_url)
-        @Html.DisplayFor(m => m.GithubDetails.avatar_url)
+        <div>
+            @Html.LabelFor(m => m.GithubDetails.avatar_url)
+            @Html.DisplayFor(m => m.GithubDetails.avatar_url)
+            <a href="@Model.GithubDetails.avatar_url">Link to Avatar</a>
+        </div>
     </div>
 
     <h3>Top Repositories by Stargazers Count</h3>
@@ -51,4 +54,7 @@
             }
         </tbody>
     </table>
+}
+else {
+   <p>No Github information for this user.</p>
 }
