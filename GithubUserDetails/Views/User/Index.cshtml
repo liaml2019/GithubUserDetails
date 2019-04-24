@@ -1,7 +1,54 @@
-﻿<h3>Please enter the Github Username to search for details</h3>
+﻿@model GithubUserDetails.Models.User
 
-@using(Html.BeginForm("Search", "User", FormMethod.Post)) {
-   <label>Username: </label>
+<h3>Please enter the Github Username to search for details</h3>
 
-   <input type="submit" value="Search" />
+@using (Html.BeginForm("Search", "User", FormMethod.Post))
+{
+    @Html.LabelFor(m => m.UserName)
+    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.UserName)
+
+    <div>
+        <input type="submit" value="Search" />
+    </div>
+}
+
+@if(Model != null && Model.GithubDetails != null) {
+    <h3>Showing details for @Model.UserName </h3>
+
+    <div>
+        @Html.LabelFor(m => m.GithubDetails.name)
+        @Html.DisplayFor(m => m.GithubDetails.name)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.GithubDetails.location)
+        @Html.DisplayFor(m => m.GithubDetails.location)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.GithubDetails.avatar_url)
+        @Html.DisplayFor(m => m.GithubDetails.avatar_url)
+    </div>
+
+    <h3>Top Repositories by Stargazers Count</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>HTML URL</th>
+                <th>Stargazer Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var repo in Model.GithubDetails.TopFiveByStargazersCount()) {
+               <tr>
+                   <td>@repo.name</td>
+                   <td>@repo.html_url</td>
+                   <td>@repo.stargazers_count</td>
+               </tr>
+            }
+        </tbody>
+    </table>
 }
